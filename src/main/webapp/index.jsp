@@ -11,17 +11,21 @@
 
     <style>
         :root {
-            --bg: #FBFAFF;             /* soft lavender-white */
-            --ink: #2D2150;            /* deep plum — rich but not harsh */
-            --accent: #FF5E7E;         /* vivid coral-pink */
-            --violet: #7C5CFC;         /* electric violet */
-            --amber: #FFB53E;          /* golden amber */
-            --mint: #2ED3A5;           /* fresh mint */
+            --bg: #FBFAFF;
+            --ink: #2D2150;
+            --pink: #FF5E7E;
+            --violet: #7C5CFC;
+            --amber: #FFB53E;
+            --mint: #2ED3A5;
+            --sky: #38BDF8;
+            --orange: #FB923C;
             --card: #FFFFFF;
-            --surface: #F1EDFF;        /* lavender surface */
-            --surface-warm: #FFF0E8;   /* peach surface */
+            --surface: #F1EDFF;
             --muted: #8B84A8;
             --grad: linear-gradient(120deg, #FF5E7E, #7C5CFC);
+            --grad-warm: linear-gradient(120deg, #FFB53E, #FB923C);
+            --grad-cool: linear-gradient(120deg, #38BDF8, #2ED3A5);
+            --rainbow: linear-gradient(90deg, #FF5E7E, #FFB53E, #2ED3A5, #38BDF8, #7C5CFC);
             --radius: 22px;
             --shadow: 0 12px 32px rgba(124, 92, 252, 0.12);
             --shadow-pink: 0 10px 26px rgba(255, 94, 126, 0.28);
@@ -60,7 +64,7 @@
             border-radius: 8px;
         }
 
-        /* Header */
+        /* Header — with a rainbow strip on top */
         header {
             position: sticky;
             top: 0;
@@ -70,12 +74,19 @@
             border-bottom: 1px solid rgba(124, 92, 252, 0.12);
         }
 
+        header::before {
+            content: '';
+            display: block;
+            height: 4px;
+            background: var(--rainbow);
+        }
+
         .header-inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 16px;
-            padding: 14px 0;
+            padding: 12px 0;
         }
 
         .brand {
@@ -127,10 +138,12 @@
             transition: background .15s ease, color .15s ease;
         }
 
-        nav.main-nav li a:hover {
-            background: var(--surface);
-            color: var(--violet);
-        }
+        /* each nav link gets its own hover color */
+        nav.main-nav li:nth-child(1) a:hover { background: #FFE4EA; color: var(--pink); }
+        nav.main-nav li:nth-child(2) a:hover { background: #EAE3FF; color: var(--violet); }
+        nav.main-nav li:nth-child(3) a:hover { background: #FFF1D6; color: #F59E0B; }
+        nav.main-nav li:nth-child(4) a:hover { background: #DDF7EE; color: #10B981; }
+        nav.main-nav li:nth-child(5) a:hover { background: #DBEEFF; color: var(--sky); }
 
         .search {
             display: flex;
@@ -184,8 +197,8 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: var(--surface);
-            color: var(--violet);
+            background: var(--grad-cool);
+            color: #fff;
             font-size: 17px;
         }
 
@@ -193,7 +206,7 @@
             position: absolute;
             top: -5px;
             right: -5px;
-            background: var(--accent);
+            background: var(--pink);
             color: white;
             font-size: 11px;
             font-weight: 800;
@@ -224,10 +237,11 @@
             position: relative;
             overflow: hidden;
             background:
-                radial-gradient(circle at 10% 15%, rgba(255, 181, 62, 0.22), transparent 32%),
-                radial-gradient(circle at 90% 12%, rgba(255, 94, 126, 0.18), transparent 34%),
-                radial-gradient(circle at 82% 88%, rgba(124, 92, 252, 0.16), transparent 32%),
-                radial-gradient(circle at 15% 85%, rgba(46, 211, 165, 0.14), transparent 28%),
+                radial-gradient(circle at 10% 15%, rgba(255, 181, 62, 0.28), transparent 32%),
+                radial-gradient(circle at 90% 12%, rgba(255, 94, 126, 0.24), transparent 34%),
+                radial-gradient(circle at 82% 88%, rgba(124, 92, 252, 0.22), transparent 32%),
+                radial-gradient(circle at 15% 85%, rgba(46, 211, 165, 0.20), transparent 28%),
+                radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.10), transparent 45%),
                 var(--bg);
         }
 
@@ -240,7 +254,7 @@
         }
 
         .hero h1 .squiggle {
-            background: var(--grad);
+            background: var(--rainbow);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -290,22 +304,39 @@
 
         .btn-ghost {
             background: #fff;
-            border: 2px solid var(--surface);
-            color: var(--ink);
+            border: 2px solid var(--sky);
+            color: var(--sky);
         }
 
-        .btn-ghost:hover { border-color: var(--violet); color: var(--violet); }
+        .btn-ghost:hover { background: #DBEEFF; }
 
-        /* Sections */
-        .section { padding: 52px 0; }
+        /* Sections — alternating tinted backgrounds */
+        .section { padding: 56px 0; }
+
+        .section-tint-lav { background: linear-gradient(180deg, #F5F2FF, #FBFAFF); }
+        .section-tint-mint { background: linear-gradient(180deg, #EDFBF6, #FBFAFF); }
+        .section-tint-peach { background: linear-gradient(180deg, #FFF4EC, #FBFAFF); }
 
         .section .title { text-align: center; margin-bottom: 32px; }
-        .section .title h2 { font-size: 32px; margin: 0 0 8px; }
+
+        .section .title h2 {
+            font-size: 32px;
+            margin: 0 0 8px;
+            display: inline-block;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-tint-mint .title h2 { background: var(--grad-cool); -webkit-background-clip: text; background-clip: text; }
+        .section-tint-peach .title h2 { background: var(--grad-warm); -webkit-background-clip: text; background-clip: text; }
+
         .section .title p { margin: 0; }
 
         .grid { display: grid; gap: 20px; }
 
-        /* Categories — each tile gets its own pastel personality */
+        /* Categories */
         .categories { grid-template-columns: repeat(6, 1fr); }
 
         .cat-card {
@@ -329,14 +360,16 @@
             display: grid;
             place-items: center;
             font-size: 22px;
+            color: #fff;
         }
 
-        .cat-card:nth-child(6n+1) .icon { background: #FFE4EA; color: #FF5E7E; }
-        .cat-card:nth-child(6n+2) .icon { background: #EAE3FF; color: #7C5CFC; }
-        .cat-card:nth-child(6n+3) .icon { background: #FFF1D6; color: #F59E0B; }
-        .cat-card:nth-child(6n+4) .icon { background: #DDF7EE; color: #10B981; }
-        .cat-card:nth-child(6n+5) .icon { background: #DBEEFF; color: #3B82F6; }
-        .cat-card:nth-child(6n+6) .icon { background: #FFE8D9; color: #F97316; }
+        /* gradient icon chips */
+        .cat-card:nth-child(6n+1) .icon { background: linear-gradient(135deg, #FF5E7E, #FF8EA9); }
+        .cat-card:nth-child(6n+2) .icon { background: linear-gradient(135deg, #7C5CFC, #A78BFA); }
+        .cat-card:nth-child(6n+3) .icon { background: linear-gradient(135deg, #F59E0B, #FCD34D); }
+        .cat-card:nth-child(6n+4) .icon { background: linear-gradient(135deg, #10B981, #6EE7B7); }
+        .cat-card:nth-child(6n+5) .icon { background: linear-gradient(135deg, #3B82F6, #93C5FD); }
+        .cat-card:nth-child(6n+6) .icon { background: linear-gradient(135deg, #F97316, #FDBA74); }
 
         .cat-card:nth-child(6n+1):hover { border-color: #FF5E7E; }
         .cat-card:nth-child(6n+2):hover { border-color: #7C5CFC; }
@@ -347,7 +380,7 @@
 
         .cat-card h4 { margin: 0; font-size: 16px; }
 
-        /* Products */
+        /* Products — colored top borders rotate through the palette */
         .products { grid-template-columns: repeat(4, 1fr); }
 
         .product {
@@ -358,8 +391,13 @@
             display: flex;
             flex-direction: column;
             box-shadow: var(--shadow);
+            border-top: 5px solid var(--pink);
             transition: transform .18s ease, box-shadow .18s ease;
         }
+
+        .product:nth-child(4n+2) { border-top-color: var(--violet); }
+        .product:nth-child(4n+3) { border-top-color: var(--mint); }
+        .product:nth-child(4n+4) { border-top-color: var(--sky); }
 
         .product:hover {
             transform: translateY(-5px);
@@ -375,7 +413,7 @@
 
         .badge {
             position: absolute;
-            top: 12px;
+            top: 17px;
             left: 12px;
             padding: 6px 12px;
             border-radius: 999px;
@@ -384,8 +422,8 @@
             color: #fff;
         }
 
-        .badge.sale { background: linear-gradient(120deg, #FF5E7E, #FF8E53); }
-        .badge.new { background: linear-gradient(120deg, #2ED3A5, #3B82F6); }
+        .badge.sale { background: linear-gradient(120deg, #FF5E7E, #FB923C); }
+        .badge.new { background: linear-gradient(120deg, #2ED3A5, #38BDF8); }
 
         .product-body {
             padding: 14px 16px 6px;
@@ -398,8 +436,6 @@
         .product h5 { margin: 0; font-size: 16px; }
 
         .product .cat-tag {
-            color: var(--violet);
-            background: var(--surface);
             align-self: flex-start;
             padding: 2px 10px;
             border-radius: 999px;
@@ -407,6 +443,14 @@
             font-weight: 700;
             text-transform: capitalize;
         }
+
+        /* category tag colors */
+        .cat-tag[data-cat="phones"]      { background: #FFE4EA; color: #FF5E7E; }
+        .cat-tag[data-cat="laptops"]     { background: #EAE3FF; color: #7C5CFC; }
+        .cat-tag[data-cat="clothing"]    { background: #FFF1D6; color: #F59E0B; }
+        .cat-tag[data-cat="gadgets"]     { background: #DDF7EE; color: #10B981; }
+        .cat-tag[data-cat="footwear"]    { background: #DBEEFF; color: #3B82F6; }
+        .cat-tag[data-cat="accessories"] { background: #FFE8D9; color: #F97316; }
 
         .price-row {
             display: flex;
@@ -451,17 +495,20 @@
             width: 42px;
             border-radius: 50%;
             cursor: pointer;
-            color: var(--accent);
+            color: var(--pink);
             transition: border-color .15s ease, transform .15s ease, background .15s ease;
         }
 
-        .wish-btn:hover { border-color: var(--accent); background: #FFE4EA; transform: scale(1.08); }
+        .wish-btn:hover { border-color: var(--pink); background: #FFE4EA; transform: scale(1.08); }
 
-        /* Deal */
+        /* Deal — deep plum with aurora glow */
         .deal {
             display: flex;
             gap: 0;
-            background: linear-gradient(120deg, #2D2150, #4A3585);
+            background:
+                radial-gradient(circle at 85% 20%, rgba(255, 94, 126, 0.35), transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.25), transparent 40%),
+                linear-gradient(120deg, #2D2150, #4A3585);
             color: #fff;
             border-radius: 28px;
             overflow: hidden;
@@ -496,8 +543,13 @@
             font-family: 'Baloo 2', sans-serif;
             font-weight: 800;
             font-size: 22px;
-            color: var(--amber);
         }
+
+        /* each timer box gets its own color */
+        .time-box:nth-child(1) > div:first-child { color: #FF8EA9; }
+        .time-box:nth-child(2) > div:first-child { color: var(--amber); }
+        .time-box:nth-child(3) > div:first-child { color: #6EE7B7; }
+        .time-box:nth-child(4) > div:first-child { color: #93C5FD; }
 
         .time-box .label { font-size: 12px; color: rgba(255,255,255,0.7); }
 
@@ -505,7 +557,7 @@
         .deal .old-price { color: rgba(255,255,255,0.5); }
 
         .deal-discount {
-            background: var(--amber);
+            background: var(--grad-warm);
             color: #4A2B00;
             padding: 7px 14px;
             border-radius: 999px;
@@ -527,14 +579,14 @@
 
         .testimonial {
             min-width: 320px;
-            background: #fff;
             padding: 22px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            border-top: 5px solid var(--accent);
         }
 
-        .testimonial:nth-child(even) { border-top-color: var(--violet); }
+        .testimonial:nth-child(odd) { background: linear-gradient(160deg, #FFF0F3, #fff 55%); border-top: 5px solid var(--pink); }
+        .testimonial:nth-child(even) { background: linear-gradient(160deg, #EFFBF7, #fff 55%); border-top: 5px solid var(--mint); }
+
         .testimonial .rating { margin-bottom: 8px; }
         .testimonial p { margin: 0 0 14px; }
 
@@ -546,9 +598,12 @@
         .testimonial .person .name { font-weight: 800; }
         .testimonial .person .role { color: var(--muted); font-size: 13px; }
 
-        /* Newsletter */
+        /* Newsletter — full aurora */
         .newsletter {
-            background: var(--grad);
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255, 181, 62, 0.4), transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(46, 211, 165, 0.35), transparent 40%),
+                linear-gradient(120deg, #FF5E7E, #7C5CFC);
             color: white;
             border-radius: 28px;
             padding: 44px 28px;
@@ -571,7 +626,7 @@
         }
 
         .newsletter .btn-primary {
-            background: var(--amber);
+            background: var(--grad-warm);
             color: #4A2B00;
             box-shadow: none;
         }
@@ -579,18 +634,29 @@
         /* Footer */
         footer {
             margin-top: 24px;
-            padding: 44px 0 28px;
+            padding: 0 0 28px;
             background: #241A42;
             color: #B9B1D6;
             border-top-left-radius: 40px;
             border-top-right-radius: 40px;
             font-size: 14px;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            display: block;
+            height: 5px;
+            background: var(--rainbow);
+            margin-bottom: 40px;
         }
 
         footer .foot-brand { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #fff; }
         footer .col-title { font-weight: 800; margin-bottom: 8px; color: #fff; }
         footer .icon-btn { background: rgba(255,255,255,0.08); color: #fff; }
-        footer .icon-btn:hover { background: var(--accent); color: #fff; }
+        footer .icon-btn:nth-child(1):hover { background: #3B82F6; }
+        footer .icon-btn:nth-child(2):hover { background: #38BDF8; }
+        footer .icon-btn:nth-child(3):hover { background: var(--pink); }
 
         /* Responsive */
         @media (max-width:1200px) {
@@ -693,84 +759,92 @@
         </section>
 
         <!-- Categories -->
-        <section class="section container" aria-labelledby="cat-title">
-            <div class="title" id="cat-title">
-                <h2>Shop by category</h2>
-                <p class="muted">Tap a category to explore what's inside.</p>
+        <section class="section section-tint-lav" aria-labelledby="cat-title">
+            <div class="container">
+                <div class="title" id="cat-title">
+                    <h2>Shop by category</h2>
+                    <p class="muted">Tap a category to explore what's inside.</p>
+                </div>
+                <div class="grid categories" id="categoriesGrid" aria-live="polite"></div>
             </div>
-            <div class="grid categories" id="categoriesGrid" aria-live="polite"></div>
         </section>
 
         <!-- Products -->
-        <section class="section container" aria-labelledby="prod-title">
-            <div class="title" id="prod-title">
-                <h2>Trending right now</h2>
-                <p class="muted">Popular picks other shoppers are loving.</p>
+        <section class="section section-tint-mint" aria-labelledby="prod-title">
+            <div class="container">
+                <div class="title" id="prod-title">
+                    <h2>Trending right now</h2>
+                    <p class="muted">Popular picks other shoppers are loving.</p>
+                </div>
+                <div class="grid products" id="productsGrid" aria-live="polite"></div>
             </div>
-            <div class="grid products" id="productsGrid" aria-live="polite"></div>
         </section>
 
         <!-- Deals -->
-        <section id="deals" class="section container" aria-labelledby="deals-title">
-            <div class="title" id="deals-title">
-                <h2>Today's flash sale</h2>
-                <p class="muted">A little treat, for a little while.</p>
-            </div>
+        <section id="deals" class="section section-tint-peach" aria-labelledby="deals-title">
+            <div class="container">
+                <div class="title" id="deals-title">
+                    <h2>Today's flash sale</h2>
+                    <p class="muted">A little treat, for a little while.</p>
+                </div>
 
-            <div class="deal">
-                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80" alt="MacBook Air M2 on a desk">
-                <div class="content">
-                    <h3>MacBook Air M2</h3>
-                    <p>Thin, light and powerful — now with M2 performance.</p>
+                <div class="deal">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80" alt="MacBook Air M2 on a desk">
+                    <div class="content">
+                        <h3>MacBook Air M2</h3>
+                        <p>Thin, light and powerful — now with M2 performance.</p>
 
-                    <div class="timer">
-                        <div class="time-box"><div id="dealDays">0</div><div class="label">Days</div></div>
-                        <div class="time-box"><div id="dealHours">00</div><div class="label">Hours</div></div>
-                        <div class="time-box"><div id="dealMinutes">00</div><div class="label">Minutes</div></div>
-                        <div class="time-box"><div id="dealSeconds">00</div><div class="label">Seconds</div></div>
-                    </div>
+                        <div class="timer">
+                            <div class="time-box"><div id="dealDays">0</div><div class="label">Days</div></div>
+                            <div class="time-box"><div id="dealHours">00</div><div class="label">Hours</div></div>
+                            <div class="time-box"><div id="dealMinutes">00</div><div class="label">Minutes</div></div>
+                            <div class="time-box"><div id="dealSeconds">00</div><div class="label">Seconds</div></div>
+                        </div>
 
-                    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-                        <div class="price">$999 <span class="old-price" style="font-size:16px">$1,199</span></div>
-                        <div class="deal-discount">Save 17%</div>
-                    </div>
+                        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+                            <div class="price">$999 <span class="old-price" style="font-size:16px">$1,199</span></div>
+                            <div class="deal-discount">Save 17%</div>
+                        </div>
 
-                    <p class="stock-note">Only <strong>12</strong> left at this price!</p>
-                    <div style="margin-top:14px;">
-                        <button class="btn btn-primary" id="buyDeal">Grab this deal</button>
+                        <p class="stock-note">Only <strong>12</strong> left at this price!</p>
+                        <div style="margin-top:14px;">
+                            <button class="btn btn-primary" id="buyDeal">Grab this deal</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Testimonials -->
-        <section class="section container" aria-labelledby="test-title">
-            <div class="title" id="test-title">
-                <h2>Happy shoppers</h2>
-                <p class="muted">Real reviews from verified buyers.</p>
-            </div>
-
-            <div class="testimonials" id="testimonials">
-                <div class="testimonial">
-                    <div class="rating">★★★★★</div>
-                    <p>"Fast shipping and excellent customer support. The product exceeded my expectations!"</p>
-                    <div class="person">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&q=80" alt="Ava Martin">
-                        <div>
-                            <div class="name">Ava Martin</div>
-                            <div class="role">Verified buyer</div>
-                        </div>
-                    </div>
+        <section class="section" aria-labelledby="test-title">
+            <div class="container">
+                <div class="title" id="test-title">
+                    <h2>Happy shoppers</h2>
+                    <p class="muted">Real reviews from verified buyers.</p>
                 </div>
 
-                <div class="testimonial">
-                    <div class="rating">★★★★☆</div>
-                    <p>"Great selection and the checkout was smooth. Will shop again."</p>
-                    <div class="person">
-                        <img src="https://images.unsplash.com/photo-1546456073-6712f79251bb?auto=format&fit=crop&w=80&q=80" alt="Michael Lee">
-                        <div>
-                            <div class="name">Michael Lee</div>
-                            <div class="role">Frequent buyer</div>
+                <div class="testimonials" id="testimonials">
+                    <div class="testimonial">
+                        <div class="rating">★★★★★</div>
+                        <p>"Fast shipping and excellent customer support. The product exceeded my expectations!"</p>
+                        <div class="person">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&q=80" alt="Ava Martin">
+                            <div>
+                                <div class="name">Ava Martin</div>
+                                <div class="role">Verified buyer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial">
+                        <div class="rating">★★★★☆</div>
+                        <p>"Great selection and the checkout was smooth. Will shop again."</p>
+                        <div class="person">
+                            <img src="https://images.unsplash.com/photo-1546456073-6712f79251bb?auto=format&fit=crop&w=80&q=80" alt="Michael Lee">
+                            <div>
+                                <div class="name">Michael Lee</div>
+                                <div class="role">Frequent buyer</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -778,15 +852,17 @@
         </section>
 
         <!-- Newsletter -->
-        <section class="section container" aria-labelledby="news-title">
-            <div class="newsletter" id="newsletter">
-                <h3 id="news-title">Let's keep in touch</h3>
-                <p>Get first dibs on new arrivals and member-only deals.</p>
-                <form id="newsletterForm" style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;" onsubmit="return false;">
-                    <input id="newsletterEmail" type="email" placeholder="you@example.com" aria-label="Email address" required>
-                    <button class="btn btn-primary" id="subscribeBtn">Join the list</button>
-                </form>
-                <div id="newsletterMsg" style="margin-top:12px;font-size:14px;font-weight:700;display:none"></div>
+        <section class="section" aria-labelledby="news-title">
+            <div class="container">
+                <div class="newsletter" id="newsletter">
+                    <h3 id="news-title">Let's keep in touch</h3>
+                    <p>Get first dibs on new arrivals and member-only deals.</p>
+                    <form id="newsletterForm" style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;" onsubmit="return false;">
+                        <input id="newsletterEmail" type="email" placeholder="you@example.com" aria-label="Email address" required>
+                        <button class="btn btn-primary" id="subscribeBtn">Join the list</button>
+                    </form>
+                    <div id="newsletterMsg" style="margin-top:12px;font-size:14px;font-weight:700;display:none"></div>
+                </div>
             </div>
         </section>
     </main>
@@ -815,7 +891,7 @@
             </div>
         </div>
 
-        <div style="text-align:center;margin-top:26px;font-size:13px">Made with <span style="color:var(--accent)">♥</span> · © <span id="year"></span> NexusShop</div>
+        <div style="text-align:center;margin-top:26px;font-size:13px">Made with <span style="color:var(--pink)">♥</span> · © <span id="year"></span> NexusShop</div>
     </footer>
 
     <script>
@@ -883,7 +959,7 @@
                     <img src="${p.img}" alt="${escapeHtml(p.title)}">
                     <div class="product-body">
                         <h5>${escapeHtml(p.title)}</h5>
-                        <div class="cat-tag">${p.category}</div>
+                        <div class="cat-tag" data-cat="${p.category}">${p.category}</div>
                         <div class="price-row">
                             <div>
                                 <div class="price">$${p.price.toLocaleString()}</div>
